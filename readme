@@ -1,0 +1,89 @@
+Background
+Keep Talking and Nobody Explodes is a cooperative puzzle game designed to test
+the players' abilities to communicate effectively in a high-pressure
+environment. One player, who must own the game, has a bomb on their screen which
+must be defused by solving the bomb's "modules", each of which contains a 
+puzzle. This player is the only player who can see the bomb. The other players
+have access to the Bomb Defusal Manual, which contains the solutions to the
+puzzle and is available for free at www.bombmanual.com. These other players
+cannot see the bomb and rely on the first player to accurately describe the
+puzzles and to communicate the information needed to solve them.
+
+Keep Coding and Nobody Explodes will provide a GUI that replaces the Bomb
+Defusal Manual. Instead of scrolling through the manual to find the current
+puzzle, players will see a dummy bomb on their screen, with generic versions
+of all the possible puzzles. The bomb defusal expert will select the current
+puzzle type, input the prompted information, then relay the solution to their
+friend who is diffusing the bomb.
+
+
+Functionality & MVP
+Using Keep Coding And Nobody Explodes, users will be able to:
+1. Manipulate a three dimensional mockup of the bomb
+2. Select the puzzle type they need to diffuse
+3. Be prompted to input the information needed to solve the puzzle
+4. Be given the correct solution to the puzzle
+
+In addition, this project will include:
+- An About modal describing how to use the puzzle solver
+- A production README
+
+
+Wireframes
+This app will be rendered entirely using Canvas. At all times the Canvas element
+will display the title of the website, a reset button to clear all input given
+to the bomb, and a menu button. The menu will have links to the Github and my
+LinkedIn as well as a slider to control mouse sensitivity when rotating the
+bomb.
+
+See wireframe.png in the root folder for a picture of the wireframe.
+
+
+Architecture and Technologies
+This project will be implemented with the following technologies:
+- Javascript for game logic
+- Canvas 2D for rendering and animation
+- Webpack to bundle js files
+
+In addition to the entry file, these scripts will be involved in this project:
+point.js: this script will define the Point class, which will contain the data
+and logic for moving a Point around in three-dimensional space and projecting
+itself onto the two-d canvas element.
+surface.js: this script will define the Surface class, which is a collection of
+Points that form a two-dimensional surface. This class will contain the data and
+logic for rendering Surfaces.
+object.js: this script will define the Object class, which is a collection of
+Surfaces whose Points all rotate around the same "origin" Point. This class will
+be used more as an organizational tool and I do not foresee it needing much, if
+any, logic for positioning or rendering.
+bomb.js: this script will define the Bomb class, which will inherit from the
+Object class. The Bomb can have Modules added to it.
+module.js: this script will define the Module class, which will inherit from the
+Surface class. This script will contain the logic common to all Puzzles.
+[puzzle_name].js: These scripts will inherit from the Module class and contain
+the logic specific to each puzzle.
+
+Implementation Timeline
+Day 1: Setup all necessary Node modules, including getting webpack working.
+Write a basic entry file and barebones of point.js, surface.js, and object.js.
+Get reacquainted with canvas. Goal for the day:
+- Get a three dimensional box rendered that is able to spin
+
+Day 2: Figure out how user interaction with canvas works. Goals for the day:
+- Allow the user to use their mouse to spin the box
+- Complete the point.js, surface.js, and object.js scripts
+
+Day 3: Write the bomb and module classes. Goals for the day:
+- Complete the bomb.js and module.js scripts
+- Have the site render an instance of the bomb class upon loading
+- Clicking a module brings the bomb forward and centers the field of view on
+that module
+
+Day 4: Create the puzzle classes
+- Have at least the beginning puzzles completed
+- The bomb should render with a module for each puzzle class
+
+Bonus features
+- Add in more complicated puzzles from later in the game
+- Improve UI (e.g. modules highlighting on mouseover)
+- Add a tab explaining the technical details behind 3D rendering on canvas 2D
