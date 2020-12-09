@@ -11,13 +11,10 @@ export default class Point {
         const defaultOptions = {
             center: null,
             relativePos: {
-                radius: null,
-                theta: null,
-                phi: null,
-            },
-            relativePosRads: {
-                theta: null,
-                phi: null,
+                x: null,
+                y: null,
+                z: null,
+                scalar: null,
             },
             absolutePos: {
                 x: 0,
@@ -25,16 +22,21 @@ export default class Point {
                 z: 0,
             },
             rotation: {
-                velocity: {
-                    radius: 0,
-                    theta: 0,
-                    phi: 0,
-                },
-                acceleration: {
-                    radius: 0,
-                    theta: 0,
-                    phi: 0,
-                }
+                xTheta: 0,
+                yTheta: 0,
+                zTheta: 0,
+                xThetaRads: 0,
+                yThetaRads: 0,
+                zThetaRads: 0,
+                posScalar: 0,
+                xOmega: 0,
+                yOmega: 0,
+                zOmega: 0,
+                velScalar: 0,
+                xAlpha: 0,
+                yAlpha: 0,
+                zAlpha: 0,
+                accScalar: 0,
             },
             orbitingFigures: [],
         }
@@ -46,13 +48,10 @@ export default class Point {
         this.options = {
             center: null,
             relativePos: {
-                radius: 0,
-                theta: 0,
-                phi: 0,
-            },
-            relativePosRads: {
-                theta: 0,
-                phi: 0,
+                x: 0,
+                y: 0,
+                z: 0,
+                scalar: 0,
             },
             absolutePos: {
                 x: null,
@@ -60,16 +59,21 @@ export default class Point {
                 z: null,
             },
             rotation: {
-                velocity: {
-                    radius: null,
-                    theta: null,
-                    phi: null,
-                },
-                acceleration: {
-                    radius: null,
-                    theta: null,
-                    phi: null,
-                }
+                xTheta: null,
+                yTheta: null,
+                zTheta: null,
+                xThetaRads: null,
+                yThetaRads: null,
+                zThetaRads: null,
+                posScalar: null,
+                xOmega: null,
+                yOmega: null,
+                zOmega: null,
+                velScalar: null,
+                xAlpha: null,
+                yAlpha: null,
+                zAlpha: null,
+                accScalar: null,
             },
             orbitingFigures: null,
         }
@@ -85,15 +89,15 @@ export default class Point {
         return this.options.absolutePos;
     }
 
-    get x() {
+    get absX() {
         return this.absolutePos.x;
     }
 
-    get y() {
+    get absY() {
         return this.absolutePos.y;
     }
 
-    get z() {
+    get absZ() {
         return this.absolutePos.z;
     }
 
@@ -101,252 +105,402 @@ export default class Point {
         return this.options.relativePos;
     }
 
-    get radius() {
-        return this.relativePos.radius;
+    get relX() {
+        return this.relativePos.x;
     }
 
-    get relativePosRads() {
-        return this.options.relativePosRads;
+    get relY() {
+        return this.relativePos.y;
+    }
+
+    get relZ() {
+        return this.relativePos.z;
+    }
+
+    get relScalar() {
+        return this.relativePos.scalar;
+    }
+
+    get rotation() {
+        return this.options.rotation;
+    }
+
+    get xTheta() {
+        return this.rotation.xTheta;
+    }
+
+    get yTheta() {
+        return this.rotation.yTheta;
+    }
+
+    get zTheta() {
+        return this.rotation.zTheta;
     }
     
-    get phiRads() {
-        return this.relativePosRads.phi;
+    get xThetaRads() {
+        return this.rotation.xThetaRads;
     }
 
-    get thetaRads() {
-        return this.relativePosRads.theta;
+    get yThetaRads() {
+        return this.rotation.yThetaRads;
     }
 
-    get rotationalVelocity() {
-        return this.options.rotation.velocity;
+    get zThetaRads() {
+        return this.rotation.zThetaRads;
     }
 
-    get radiusVelocity() {
-        return this.rotationalVelocity.radius;
+    get posScalar() {
+        return this.rotation.posScalar;
     }
 
-    get phiVelocity() {
-        return this.rotationalVelocity.phi;
+    get xOmega() {
+        return this.rotation.xOmega;
     }
 
-    get thetaVelocity() {
-        return this.rotationalVelocity.theta;
+    get yOmega() {
+        return this.rotation.yOmega;
     }
 
-    get rotationalAcceleration() {
-        return this.options.rotation.acceleration;
+    get zOmega() {
+        return this.rotation.zOmega;
     }
 
-    get radiusAcceleration() {
-        return this.rotationalAcceleration.radius;
+    get velScalar() {
+        return this.rotation.velScalar;
     }
 
-    get thetaAcceleration() {
-        return this.rotationalAcceleration.theta;
+    get xAlpha() {
+        return this.rotation.xAlpha;
     }
 
-    get phiAcceleration() {
-        return this.rotationalAcceleration.phi;
+    get yAlpha() {
+        return this.rotation.yAlpha;
+    }
+
+    get zAlpha() {
+        return this.rotation.zAlpha;
+    }
+
+    get accScalar() {
+        return this.rotation.accScalar;
+    }
+
+    get xThetaVelocity() {
+        return this.rotation.xTheta;
+    }
+
+    get yThetaVelocity() {
+        return this.rotation.yTheta;
+    }
+
+    get zThetaVelocity() {
+        return this.rotation.zTheta;
+    }
+
+    get xThetaRadsVelocity() {
+        return this.rotation.xTheta;
+    }
+
+    get yThetaRadsVelocity() {
+        return this.rotation.yTheta;
+    }
+
+    get zThetaRadsVelocity() {
+        return this.rotation.zTheta;
     }
 
     get orbitingFigures() {
         return this.options.orbitingFigures;
     }
 
-    updateRadius() {
-        this.relativePos.radius += this.center.radiusVelocity;
-    }
-
-    updatePhi() {
-        this.relativePos.phi += this.center.phiVelocity;
-        if (this.relativePos.phi > 180) {
-            this.relativePos.phi = this.relativePos.phi % 180;
-            this.relativePos.theta += 180;
-        } else if (this.relativePos.phi < 0) {
-            this.relativePos.phi = -this.relativePos.phi;
-            this.relativePos.theta += 180;
-        }
-        this.relativePosRads.phi = toRadians(this.relativePos.phi);
-    }
-
-    updateTheta() {
-        this.relativePos.theta = ((
-            this.relativePos.theta + this.center.thetaVelocity) % 360
-        );
-        this.relativePosRads.theta = toRadians(this.relativePos.theta);
-    }
-
-    updateX() {
+    updateRelScalar() {
         debugger;
-        this.absolutePos.x = this.center.x + (
-            this.radius * Math.sin(this.phiRads) * Math.cos(this.thetaRads)
+        this.relativePos.scalar += this.center.velScalar;
+    }
+
+    updateAbsX() {
+        this.absolutePos.x = (
+            this.center.absX + 
+            this.relScalar * (
+                (
+                    this.relZ * (
+                        Math.cos(this.center.zThetaRads) *
+                        Math.sin(this.center.yThetaRads) *
+                        Math.cos(this.center.xThetaRads) +
+                        Math.sin(this.center.zThetaRads) *
+                        Math.sin(this.center.xThetaRads)
+                    )
+                ) + (
+                    this.relY * (
+                        Math.cos(this.center.zThetaRads) *
+                        Math.sin(this.center.yThetaRads) *
+                        Math.sin(this.center.xThetaRads) +
+                        - Math.sin(this.center.zThetaRads) *
+                        Math.cos(this.center.xThetaRads)
+                    )
+                ) + (
+                    this.relX * 
+                    Math.cos(this.center.zThetaRads) *
+                    Math.cos(this.center.yThetaRads)
+                )
+            )
         )
     }
 
-    updateZ() {
-        this.absolutePos.z = this.center.z + (
-            this.radius * Math.sin(this.phiRads) * Math.sin(this.thetaRads)
+    updateAbsY() {
+        this.absolutePos.y = (
+            this.center.absY + 
+            this.relScalar * (
+                (
+                    this.relZ * (
+                        Math.sin(this.center.zThetaRads) *
+                        Math.sin(this.center.yThetaRads) *
+                        Math.cos(this.center.xThetaRads) +
+                        - Math.cos(this.center.zThetaRads) *
+                        Math.sin(this.center.xThetaRads)
+                    )
+                ) + (
+                    this.relY * (
+                        Math.sin(this.center.zThetaRads) *
+                        Math.sin(this.center.yThetaRads) *
+                        Math.sin(this.center.xThetaRads) +
+                        Math.cos(this.center.zThetaRads) *
+                        Math.cos(this.center.xThetaRads)
+                    )
+                ) + (
+                    this.relX * 
+                    Math.sin(this.center.zThetaRads) *
+                    Math.cos(this.center.yThetaRads)
+                )
+            )
         )
     }
 
-    updateY() {
-        this.absolutePos.y = this.center.y + (
-            this.radius * Math.cos(this.phiRads)
+    updateAbsZ() {
+        this.absolutePos.z = (
+            this.center.absZ + 
+            this.relScalar * (
+                (
+                    this.relZ *
+                    Math.cos(this.center.xThetaRads) *
+                    Math.cos(this.center.yThetaRads)
+                ) + (
+                    this.relY *
+                    Math.sin(this.center.xThetaRads) *
+                    Math.cos(this.center.yThetaRads)
+                 
+                ) + (
+                    this.relX * 
+                    (-Math.sin(this.center.yThetaRads))
+                )
+            )
         )
-    }
-
-    updateRelativePos() {
-        this.updateRadius();
-        this.updatePhi();
-        this.updateTheta();
     }
 
     updateAbsolutePos() {
-        this.updateX();
-        this.updateY();
-        this.updateZ();
+        this.updateAbsX();
+        this.updateAbsY();
+        this.updateAbsZ();
     }
 
     updatePos() {
-        this.updateRelativePos();
+        this.updateRelScalar();
         this.updateAbsolutePos();
     }
 
-    updateRadiusAcceleration() {
-        if (this.radiusVelocity > 0) {
-            this.rotationalAcceleration.radius = -1;
-        } else if (this.radiusVelocity < 0) {
-            this.rotationalAcceleration.radius = 1;
+    updateAccScalar() {
+        if (this.velScalar > 0) {
+            this.rotation.accScalar = -1;
+        } else if (this.velScalar < 0) {
+            this.rotation.accScalar = 1;
         } else {
-            this.rotationalAcceleration.radius = 0;
+            this.rotation.accScalar = 0;
         }
     }
 
-    updateThetaAcceleration() {
-        if (this.thetaVelocity > 0) {
-            this.rotationalAcceleration.theta = -1;
-        } else if (this.thetaVelocity < 0) {
-            this.rotationalAcceleration.theta = 1;
+    updateXAlpha() {
+        if (this.xOmega > 0) {
+            this.rotation.xAlpha = -1;
+        } else if (this.xOmega < 0) {
+            this.rotation.xAlpha = 1;
         } else {
-            this.rotationalAcceleration.theta = 0;
+            this.rotation.xAlpha = 0;
         }
     }
 
-    updatePhiAcceleration() {
-        if (this.phiVelocity > 0) {
-            this.rotationalAcceleration.phi = -1;
-        } else if (this.phiVelocity < 0) {
-            this.rotationalAcceleration.phi = 1;
+    updateYAlpha() {
+        if (this.yOmega > 0) {
+            this.rotation.yAlpha = -1;
+        } else if (this.yOmega < 0) {
+            this.rotation.yAlpha = 1;
         } else {
-            this.rotationalAcceleration.phi = 0;
+            this.rotation.yAlpha = 0;
         }
     }
 
-    setRadiusVelocity(radius) {
-        this.rotationalVelocity.radius = radius;
-        this.updateRadiusAcceleration();
+    updateZAlpha() {
+        if (this.zOmega > 0) {
+            this.rotation.zAlpha = -1;
+        } else if (this.zOmega < 0) {
+            this.rotation.zAlpha = 1;
+        } else {
+            this.rotation.zAlpha = 0;
+        }
     }
 
-    setThetaVelocity(theta) {
-        this.rotationalVelocity.theta = theta;
-        this.updateThetaAcceleration();
+    setVelScalar(scalar) {
+        this.rotation.velScalar = scalar;
+        this.updateAccScalar();
     }
 
-    setPhiVelocity(phi) {
-        this.rotationalVelocity.phi = phi;
-        this.updatePhiAcceleration();
+    setXOmega(omega) {
+        this.rotation.xOmega = omega;
+        this.updateXAlpha();
     }
 
-    setVelocity({
-        radius = this.radiusVelocity,
-        theta = this.thetaVelocity,
-        phi = this.phiVelocity,
+    setYOmega(omega) {
+        this.rotation.yOmega = omega;
+        this.updateYAlpha();
+    }
+
+    setZOmega(omega) {
+        this.rotation.zOmega = omega;
+        this.updateZAlpha();
+    }
+
+    setOmegas({
+        velScalar = this.radiusVelocity,
+        xOmega = this.xOmega,
+        yOmega = this.yOmega,
+        zOmega = this.zOmega,
     }) {
-        this.setRadiusVelocity(radius);
-        this.setThetaVelocity(theta);
-        this.setPhiVelocity(phi);
+        this.setVelScalar(velScalar);
+        this.setXOmega(xOmega);
+        this.setYOmega(yOmega);
+        this.setZOmega(zOmega);
     }
 
-    updateRadiusVelocity() {
-        if (this.radiusVelocity > 0 !== (
-            this.radiusVelocity + this.radiusAcceleration > 0)
+    updateVelScalar() {
+        if (this.velScalar > 0 !== (
+            this.velScalar + this.accScalar > 0)
         ) {
-            this.rotationalVelocity.radius = 0;
-            this.updateRadiusAcceleration();
+            this.rotation.velScalar = 0;
+            this.updateAccScalar();
         } else {
-            this.rotationalVelocity.radius = (
-                this.radiusVelocity + this.radiusAcceleration
-            );
+            this.rotation.velScalar += this.accScalar;
         }
     }
 
-    updateThetaVelocity() {
-        if (this.thetaVelocity > 0 !== (
-            this.thetaVelocity + this.thetaAcceleration > 0)
+    updateXOmega() {
+        if (this.xOmega > 0 !== (
+            this.xOmega + this.xAlpha > 0)
         ) {
-            this.rotationalVelocity.theta = 0;
-            this.updateThetaAcceleration();
+            this.rotation.xOmega = 0;
+            this.updateXAlpha();
         } else {
-            this.rotationalVelocity.theta = (
-                this.thetaVelocity + this.thetaAcceleration
-            );
+            this.rotation.xOmega = (this.xOmega + this.xAlpha) % 360;
         }
     }
 
-    updatePhiVelocity() {
-        if (this.phiVelocity > 0 !== (
-            this.phiVelocity + this.phiAcceleration > 0)
+    updateYOmega() {
+        if (this.yOmega > 0 !== (
+            this.yOmega + this.yAlpha > 0)
         ) {
-            this.rotationalVelocity.phi = 0;
-            this.updatePhiAcceleration();
+            this.rotation.yOmega = 0;
+            this.updateYAlpha();
         } else {
-            this.rotationalVelocity.phi = (
-                this.phiVelocity + this.phiAcceleration
-            );
+            this.rotation.yOmega = (this.yOmega + this.yAlpha) % 360;
         }
     }
 
-    updateVelocity() {
-        this.updateRadiusVelocity();
-        this.updateThetaVelocity();
-        this.updatePhiVelocity();
+    updateZOmega() {
+        if (this.zOmega > 0 !== (
+            this.zOmega + this.zAlpha > 0)
+        ) {
+            this.rotation.zOmega = 0;
+            this.updateZAlpha();
+        } else {
+            this.rotation.zOmega = (this.zOmega + this.zAlpha) % 360;
+        }
     }
 
-    isRotating() {
+    updateOmegas() {
+        this.updateVelScalar();
+        this.updateXOmega();
+        this.updateYOmega();
+        this.updateZOmega();
+    }
+
+    updatePosScalar() {
+        if (this.posScalar > 0 !== (
+            this.posScalar + this.velScalar > 0)
+        ) {
+            this.rotation.posScalar = 0;
+        } else {
+            this.rotation.posScalar += this.velScalar;
+        }
+    }
+
+    updateXTheta() {
+        this.rotation.xTheta = (this.xTheta + this.xOmega) % 360;
+        this.rotation.xThetaRads = toRadians(this.xTheta);
+    }
+
+    updateYTheta() {
+        this.rotation.yTheta = (this.yTheta + this.yOmega) % 360;
+        this.rotation.yThetaRads = toRadians(this.yTheta);
+    }
+
+    updateZTheta() {
+        this.rotation.zTheta = (this.zTheta + this.zOmega) % 360;
+        this.rotation.zThetaRads = toRadians(this.zTheta);
+    }
+
+    updateThetas() {
+        this.updateOmegas();
+        this.updatePosScalar();
+        this.updateXTheta();
+        this.updateYTheta();
+        this.updateZTheta();
+    }
+
+    isTransforming() {
         return (
-            this.phiAcceleration ||
-            this.thetaAcceleration ||
-            this.radiusAcceleration ||
-            this.phiVelocity ||
-            this.thetaVelocity ||
-            this.radiusVelocity
+            this.xAlpha ||
+            this.yAlpha ||
+            this.zAlpha ||
+            this.accScalar ||
+            this.xOmega ||
+            this.yOmega ||
+            this.zOmega ||
+            this.velScalar
         )
     }
 
+    dist(point) {
+        const deltaX = this.absX - point.absX;
+        const deltaY = this.absY - point.absY;
+        const deltaZ = this.absZ - point.absZ;
+        return Math.sqrt(deltaX ** 2 + deltaY ** 2 + deltaZ ** 2)
+    }
+
     calcRelative() {
-        const relX = this.x - this.center.x;
-        const relY = this.y - this.center.y;
-        const relZ = this.z - this.center.z;
-        const relRadius = Math.sqrt(relX * relX + relY * relY + relZ * relZ);
-        const relTheta = (
-            Math.atan(relZ / relX) * 180 / Math.PI + (relX < 0 ? 180 : 0)
-        );
-        const relPhi = (
-            relY ?
-            Math.atan(
-                Math.sqrt(relX * relX + relZ * relZ) / 
-                relY
-            ) * 180 / Math.PI + (relY < 0 ? 180 : 0) :
-            90
-        );
-        this.relativePos.radius = relRadius;
-        this.relativePos.theta = relTheta;
-        this.relativePos.phi = relPhi;
+        let relX = this.absX - this.center.absX;
+        let relY = this.absY - this.center.absY;
+        let relZ = this.absZ - this.center.absZ;
+        const relScalar = Math.sqrt(relX * relX + relY * relY + relZ * relZ);
+        relX = relX / relScalar;
+        relY = relY / relScalar;
+        relZ = relZ / relScalar;
+        this.relativePos.x = relX;
+        this.relativePos.y = relY;
+        this.relativePos.z = relZ;
+        this.relativePos.scalar = relScalar;
     }
 
     render(ctx) {
-        if (this.isRotating()) {
-            this.updateVelocity();
+        if (this.isTransforming()) {
+            this.updateThetas();
             this.orbitingFigures.forEach(figure => {
                 figure.updatePos();
             })
