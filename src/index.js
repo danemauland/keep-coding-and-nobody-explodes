@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const ctx = canvas.getContext("2d");
     ctx.lineWidth = 2;
 
-    const bomb = new Figure();
     const centerPoint = Point.createCenterPoint({
         absolutePos: {
             x: canvas.width / 2,
@@ -26,80 +25,94 @@ document.addEventListener("DOMContentLoaded", () => {
             yThetaRads: 0,
             zThetaRads: 0,
             posScalar: 0,
-            xOmega: 1,
-            yOmega: 1,
+            xOmega: 0,
+            yOmega: 0,
             zOmega: 0,
             velScalar: 0,
-            xAlpha: 0,
-            yAlpha: 0,
-            zAlpha: 0,
+            xAlpha: -0.05,
+            yAlpha: -0.05,
+            zAlpha: -0.05,
             accScalar: 0,
         },
-        orbitingFigures: [bomb],
+        orbitingFigures: [],
     });
+    debugger;
     window.centerPoint = centerPoint;
+
+    centerPoint.addOrbitingFigure(cp1(centerPoint, canvas));
+    
+    const draw = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        centerPoint.render(ctx);
+        requestAnimationFrame(draw);
+    }
+    window.requestAnimationFrame(draw)
+})
+
+const cp1 = (centerPoint) => {
+    const bomb = new Figure();
     const point1 = new Point({
         center: centerPoint,
         absolutePos: {
-            x: canvas.width / 3,
-            y: canvas.height / 3,
-            z: canvas.height / 16,
+            x: centerPoint.absX - 100,
+            y: centerPoint.absY - 100,
+            z: 100,
         },
     });
     const point2 = new Point({
         center: centerPoint,
         absolutePos: {
-            x: canvas.width / 3 * 2,
-            y: canvas.height / 3,
-            z: canvas.height / 16,
+            x: centerPoint.absX + 100,
+            y: centerPoint.absY - 100,
+            z: 100,
         },
     });
     const point3 = new Point({
         center: centerPoint,
         absolutePos: {
-            x: canvas.width / 3 * 2,
-            y: canvas.height / 3 * 2,
-            z: canvas.height / 16,
+            x: centerPoint.absX + 100,
+            y: centerPoint.absY + 100,
+            z: 100,
         },
     });
     const point4 = new Point({
         center: centerPoint,
         absolutePos: {
-            x: canvas.width / 3,
-            y: canvas.height / 3 * 2,
-            z: canvas.height / 16,
+            x: centerPoint.absX - 100,
+            y: centerPoint.absY + 100,
+            z: 100,
         },
     });
     const point5 = new Point({
         center: centerPoint,
         absolutePos: {
-            x: canvas.width / 3,
-            y: canvas.height / 3,
-            z: -(canvas.height / 16),
+            x: centerPoint.absX - 100,
+            y: centerPoint.absY - 100,
+            z: -100,
         },
     });
     const point6 = new Point({
         center: centerPoint,
         absolutePos: {
-            x: canvas.width / 3 * 2,
-            y: canvas.height / 3,
-            z: -(canvas.height / 16),
+            x: centerPoint.absX + 100,
+            y: centerPoint.absY - 100,
+            z: -100,
         },
     });
     const point7 = new Point({
         center: centerPoint,
         absolutePos: {
-            x: canvas.width / 3 * 2,
-            y: canvas.height / 3 * 2,
-            z: -(canvas.height / 16),
+            x: centerPoint.absX + 100,
+            y: centerPoint.absY + 100,
+            z: -100,
         },
     });
     const point8 = new Point({
         center: centerPoint,
         absolutePos: {
-            x: canvas.width / 3,
-            y: canvas.height / 3 * 2,
-            z: -(canvas.height / 16),
+            x: centerPoint.absX - 100,
+            y: centerPoint.absY + 100 ,
+            z: -100,
         },
     });
     point1.calcRelative();
@@ -122,10 +135,5 @@ document.addEventListener("DOMContentLoaded", () => {
     bomb.addSurface(backSurface);
     bomb.addSurface(topSurface);
     bomb.addSurface(bottomSurface);
-    const draw = () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        centerPoint.render(ctx);
-        requestAnimationFrame(draw);
-    }
-    window.requestAnimationFrame(draw)
-})
+    return bomb;
+}

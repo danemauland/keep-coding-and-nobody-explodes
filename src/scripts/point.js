@@ -213,8 +213,11 @@ export default class Point {
         return this.options.orbitingFigures;
     }
 
+    addOrbitingFigure(figure) {
+        this.options.orbitingFigures.push(figure);
+    }
+
     updateRelScalar() {
-        debugger;
         this.relativePos.scalar += this.center.velScalar;
     }
 
@@ -473,7 +476,8 @@ export default class Point {
             this.xOmega ||
             this.yOmega ||
             this.zOmega ||
-            this.velScalar
+            this.velScalar ||
+            (this.center && this.center.isTransforming())
         )
     }
 
@@ -499,6 +503,7 @@ export default class Point {
     }
 
     render(ctx) {
+        debugger;
         if (this.isTransforming()) {
             this.updateThetas();
             this.orbitingFigures.forEach(figure => {
