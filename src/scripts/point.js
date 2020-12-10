@@ -337,39 +337,23 @@ export default class Point {
         this.updateAbsY();
         this.updateAbsZ();
     }
-    
-    updateProX() {
-        debugger;
-        this.projectedPos.x = (
-            (
-                PX_FROM_MONITOR * (this.absX - this.canvas.width / 2)
-            ) / 
-            ( 
-                PX_FROM_MONITOR - this.absZ
-            ) +
-            this.canvas.width / 2
-        )
-    }
-
-    updateProY() {
-        this.projectedPos.y = (
-            (
-                PX_FROM_MONITOR * this.absY - PX_BELOW_MONITOR_TOP * this.absZ
-            ) / 
-            ( 
-                PX_FROM_MONITOR - this.absZ
-            )
-        )
-    }
 
     updateProjectedPos() {
+        const distanceFromEyeToPoint = Math.sqrt(
+            (this.absX - this.canvas.width / 2) ** 2 +
+            (this.absY - PX_BELOW_MONITOR_TOP) ** 2 +
+            (this.absZ - PX_FROM_MONITOR ) ** 2
+        );
+        const dirX = (this.absX - this.canvas.width / 2) / distanceFromEyeToPoint;
+        const dirY = (this.absY - PX_BELOW_MONITOR_TOP) / distanceFromEyeToPoint;
+        const dirZ = (this.absZ - PX_FROM_MONITOR ) / distanceFromEyeToPoint;
         debugger;
-        this.updateProX();
-        this.updateProY();
+        const scalarToScreen = this.absZ / dirZ;
+        this.projectedPos.x = this.absX - dirX * scalarToScreen;
+        this.projectedPos.y = this.absY - dirY * scalarToScreen;
     }
 
     updatePos() {
-        debugger;
         this.updateRelScalar();
         this.updateAbsolutePos();
         this.updateProjectedPos();
