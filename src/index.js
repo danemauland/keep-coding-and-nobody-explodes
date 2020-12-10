@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ctx.lineWidth = 2;
 
     const centerPoint = Point.createCenterPoint({
+        canvas,
         absolutePos: {
             x: canvas.width / 2,
             y: canvas.height / 2,
@@ -29,14 +30,13 @@ document.addEventListener("DOMContentLoaded", () => {
             yOmega: 0,
             zOmega: 0,
             velScalar: 0,
-            xAlpha: -0.05,
-            yAlpha: -0.05,
-            zAlpha: -0.05,
+            xAlpha: 0,
+            yAlpha: 0,
+            zAlpha: 0,
             accScalar: 0,
         },
         orbitingFigures: [],
     });
-    debugger;
     window.centerPoint = centerPoint;
 
     centerPoint.addOrbitingFigure(cp1(centerPoint, canvas));

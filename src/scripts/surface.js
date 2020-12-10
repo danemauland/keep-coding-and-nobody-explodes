@@ -35,12 +35,13 @@ export default class Surface {
     }
 
     render(ctx) {
+        debugger;
         ctx.beginPath();
         //TODO: update to use 2D projected coordinates
         // if (this.options.id === "1") console.log(this.points[0].dist(window.centerPoint));
-        ctx.moveTo(this.points[0].absX, this.points[0].absY);
+        ctx.moveTo(this.points[0].proX, this.points[0].proY);
         for (let i = 1; i < this.points.length; i++) {
-            ctx.lineTo(this.points[i].absX, this.points[i].absY)
+            ctx.lineTo(this.points[i].proX, this.points[i].proY)
         }
         ctx.closePath();
         ctx.strokeStyle = this.options.strokeStyle;

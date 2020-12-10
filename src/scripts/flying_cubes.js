@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ctx.lineWidth = 2;
 
     const centerPoint = Point.createCenterPoint({
+        canvas,
         absolutePos: {
             x: canvas.width / 2,
             y: canvas.height / 2,

@@ -1,4 +1,9 @@
 var merge = require('lodash.merge');
+import {
+    PX_BELOW_MONITOR_TOP,
+    PX_FROM_MONITOR,
+} from "./util/perception_util"
+
 function toRadians(degrees) {
     return degrees * (Math.PI / 180)
 }
@@ -10,6 +15,7 @@ export default class Point {
     static createCenterPoint(options) {
         const defaultOptions = {
             center: null,
+            canvas: null,
             relativePos: {
                 x: null,
                 y: null,
@@ -20,6 +26,10 @@ export default class Point {
                 x: 0,
                 y: 0,
                 z: 0,
+            },
+            projectedPos: {
+                x: null,
+                y: null,
             },
             rotation: {
                 xTheta: 0,
@@ -47,6 +57,7 @@ export default class Point {
     constructor(options) {
         this.options = {
             center: null,
+            canvas: null,
             relativePos: {
                 x: 0,
                 y: 0,
@@ -57,6 +68,10 @@ export default class Point {
                 x: null,
                 y: null,
                 z: null,
+            },
+            projectedPos: {
+                x: null,
+                y: null,
             },
             rotation: {
                 xTheta: null,
@@ -79,10 +94,15 @@ export default class Point {
         }
         this.id = (pointCount++).toString();
         merge(this.options, options);
+        this.options.canvas ||= this.center.canvas;
     }
 
     get center() {
         return this.options.center;
+    }
+
+    get canvas() {
+        return this.options.canvas;
     }
 
     get absolutePos() {
@@ -99,6 +119,18 @@ export default class Point {
 
     get absZ() {
         return this.absolutePos.z;
+    }
+
+    get projectedPos() {
+        return this.options.projectedPos;
+    }
+
+    get proX() {
+        return this.projectedPos.x;
+    }
+
+    get proY() {
+        return this.projectedPos.y;
     }
 
     get relativePos() {
@@ -305,10 +337,42 @@ export default class Point {
         this.updateAbsY();
         this.updateAbsZ();
     }
+    
+    updateProX() {
+        debugger;
+        this.projectedPos.x = (
+            (
+                PX_FROM_MONITOR * (this.absX - this.canvas.width / 2)
+            ) / 
+            ( 
+                PX_FROM_MONITOR - this.absZ
+            ) +
+            this.canvas.width / 2
+        )
+    }
+
+    updateProY() {
+        this.projectedPos.y = (
+            (
+                PX_FROM_MONITOR * this.absY - PX_BELOW_MONITOR_TOP * this.absZ
+            ) / 
+            ( 
+                PX_FROM_MONITOR - this.absZ
+            )
+        )
+    }
+
+    updateProjectedPos() {
+        debugger;
+        this.updateProX();
+        this.updateProY();
+    }
 
     updatePos() {
+        debugger;
         this.updateRelScalar();
         this.updateAbsolutePos();
+        this.updateProjectedPos();
     }
 
     updateAccScalar() {
@@ -500,10 +564,10 @@ export default class Point {
         this.relativePos.y = relY;
         this.relativePos.z = relZ;
         this.relativePos.scalar = relScalar;
+        this.updateProjectedPos();
     }
 
     render(ctx) {
-        debugger;
         if (this.isTransforming()) {
             this.updateThetas();
             this.orbitingFigures.forEach(figure => {
