@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"main.css","sourceRoot":""}
+{"version":3,"sources":["webpack:///./src/styles/index.scss"],"names":[],"mappings":"AAAA,KACI,SACA,Y","file":"main.css","sourcesContent":["body {\n    margin: 0;\n    height: 100%;\n}"],"sourceRoot":""}
